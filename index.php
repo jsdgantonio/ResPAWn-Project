@@ -1,34 +1,44 @@
+<?php
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ResPAWn</title>
+    <title>ResPAWn - Sign Up</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    Welcome to ResPAWn!
 
-    <br>
-    <a href="aboutus.php">About Us</a>
-    <br>
+    <h1>Welcome to ResPAWn!</h1>
+    <h2>Sign Up</h2>
+    <h3>insert slogan kemerut</h3>
 
-    <?php
-    include("connection.php");
+    <div class="row">
+        <div class="column" style="background-color:#aaa;">
+            <a href="signupUser.php" style="text-decoration: none; color: inherit;">
+                <h2>Are you a User?</h2>
+                <p>Some text..</p>
+            </a>
+        </div>
+        <div class="column" style="background-color:#bbb;">
+            <a href="signupOrg.php" style="text-decoration: none; color: inherit;">
+                <h2>Are you an Organization?</h2>
+                <p>Some text..</p>
+            </a>
+        </div>
+    </div>
 
-    if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["userID"]) && isset($_GET["action"]) && $_GET["action"] == "view") {
-        $customerId = $_GET["userID"];
-    
-        $query = "SELECT * FROM user";
-        $stmt = $conn->prepare($query);
-        $stmt->bindParam($userID, PDO::PARAM_INT);
-        $stmt->execute();
-        $customer = $stmt->fetch(PDO::FETCH_ASSOC);
-    } else {
-        // Handle invalid or missing parameters
-        echo "Invalid request";
-        exit();
-    }
-    ?>
-    
+    <p>Already have an account? <a href="login.php">Login Here</a></p>
+
+    <h1>About Us</h1>
+
+
 </body>
+
 </html>
