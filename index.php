@@ -1,5 +1,6 @@
 <?php
 
+include("connection.php");
 
 ?>
 
@@ -34,7 +35,7 @@
         </div>
     </div>
 
-    <p>Already have an account? <a href="login.php">Login Here</a></p>
+    <p>Already have an account? <a href="loginUser.php">Login Here</a></p>
 
     <h1>About Us</h1>
 

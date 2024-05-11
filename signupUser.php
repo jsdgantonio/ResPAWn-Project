@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['submit'])) {
 
         <button type="submit" name="submit"> Submit </button>
 
-        <p>Already have an account? <a href="login.php">Login Here</a>
+        <p>Already have an account? <a href="loginUser.php">Login Here</a>
 
         </p>
 </body>
