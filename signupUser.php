@@ -9,18 +9,29 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['submit'])) {
     $userEmail = $_POST['userEmail'];
     $userContact = $_POST['userContact'];
 
-    try {
-        $stmt = $dbh->prepare("INSERT INTO user_tb (userUsername, userPassword, userFirstName, userLastName, userEmail, userContact) VALUES (:userUsername, :userPassword, :userFirstName, :userLastName, :userEmail, :userContact)");
-        $stmt->bindParam(':userUsername', $userUsername);
-        $stmt->bindParam(':userPassword', $userPassword);
-        $stmt->bindParam(':userFirstName', $userFirstName);
-        $stmt->bindParam(':userLastName', $userLastName);
-        $stmt->bindParam(':userEmail', $userEmail);
-        $stmt->bindParam(':userContact', $userContact);
-        $stmt->execute();
-        echo "<script type='text/javascript'> alert('Successfully Registered')</script>";
-    } catch (PDOException $e) {
-        echo "<script type='text/javascript'> alert('Registration Failed: " . $e->getMessage() . "')</script>";
+    // Check if username or email already exists
+    $stmt = $dbh->prepare("SELECT * FROM user_tb WHERE userUsername = :userUsername OR userEmail = :userEmail");
+    $stmt->bindParam(':userUsername', $userUsername);
+    $stmt->bindParam(':userEmail', $userEmail);
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($result) {
+        echo "<script type='text/javascript'> alert('Username or email already exists')</script>";
+    } else {
+        try {
+            $stmt = $dbh->prepare("INSERT INTO user_tb (userUsername, userPassword, userFirstName, userLastName, userEmail, userContact) VALUES (:userUsername, :userPassword, :userFirstName, :userLastName, :userEmail, :userContact)");
+            $stmt->bindParam(':userUsername', $userUsername);
+            $stmt->bindParam(':userPassword', $userPassword);
+            $stmt->bindParam(':userFirstName', $userFirstName);
+            $stmt->bindParam(':userLastName', $userLastName);
+            $stmt->bindParam(':userEmail', $userEmail);
+            $stmt->bindParam(':userContact', $userContact);
+            $stmt->execute();
+            echo "<script type='text/javascript'> alert('Successfully Registered')</script>";
+        } catch (PDOException $e) {
+            echo "<script type='text/javascript'> alert('Registration Failed: " . $e->getMessage() . "')</script>";
+        }
     }
 } elseif ($_SERVER['REQUEST_METHOD'] == "POST") {
     echo "<script type='text/javascript'> alert('Please Enter Valid Information')</script>";
@@ -36,11 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['submit'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ResPAWn - Sign Up User</title>
     <link rel="stylesheet" href="style.css" </head>
-    <script type="text/javascript">
-        function redirectToLogin() {
-            window.location.href = "index.php";
-        }
-    </script>
 
 <body>
 
@@ -53,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['submit'])) {
     <a href="aboutus.php">About Us</a>
     <br>
 
-    <form method="POST">
+    <form method="POST" id="signupForm">
         <label for="userUsername">Username:</label>
         <input type="text" id="userUsername" name="userUsername" required><br><br>
 
@@ -70,15 +76,36 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['submit'])) {
         <input type="email" id="userEmail" name="userEmail" required><br><br>
 
         <label for="userContact">Contact:</label>
-        <label for="userContact">Contact:</label>
         <input type="tel" id="userContact" name="userContact" pattern="[0-9]{4}-[0-9]{3}-[0-9]{4}" placeholder="0912-345-6789" required><br><br>
 
 
         <button type="submit" name="submit"> Submit </button>
 
-        <p>Already have an account? <a href="loginUser.php">Login Here</a>
+        <p>Already have an account? <a href="login.php">Login Here</a>
 
         </p>
+
+        <script type="text/javascript">
+            function redirectToHomepage() {
+                window.location.href = "homepageUser.php";
+            }
+
+            function handleRegistration() {
+                var form = document.getElementById("signupForm");
+                form.addEventListener("submit", function(event) {
+                    event.preventDefault(); // Prevent the default form submission
+
+                    // Perform AJAX request or other validation here
+                    // Assuming registration is successful
+                    redirectToHomepage();
+                });
+            }
+
+            // Call the function when the page is loaded
+            window.onload = function() {
+                handleRegistration();
+            };
+        </script>
 </body>
 
 </html>
