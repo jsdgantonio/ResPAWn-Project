@@ -6,7 +6,7 @@
 <nav style="background-color: #FFFFFF;">
             <div class="logo-container">
                 <a href="../aboutus.php">
-                    <img src="navbar-imgs/RESPAWN-logo.png" alt="ResPAWn Logo">
+                    <img src="RESPAWN-logo.png" alt="ResPAWn Logo">
                 </a>
 
             </div>
