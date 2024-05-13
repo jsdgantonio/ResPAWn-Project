@@ -9,24 +9,38 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['submit'])) {
     $userEmail = $_POST['userEmail'];
     $userContact = $_POST['userContact'];
 
-    try {
-        $stmt = $dbh->prepare("INSERT INTO user_tb (userUsername, userPassword, userFirstName, userLastName, userEmail, userContact) VALUES (:userUsername, :userPassword, :userFirstName, :userLastName, :userEmail, :userContact)");
-        $stmt->bindParam(':userUsername', $userUsername);
-        $stmt->bindParam(':userPassword', $userPassword);
-        $stmt->bindParam(':userFirstName', $userFirstName);
-        $stmt->bindParam(':userLastName', $userLastName);
-        $stmt->bindParam(':userEmail', $userEmail);
-        $stmt->bindParam(':userContact', $userContact);
-        $stmt->execute();
-        echo "<script type='text/javascript'> alert('Successfully Registered')</script>";
-    } catch (PDOException $e) {
-        echo "<script type='text/javascript'> alert('Registration Failed: " . $e->getMessage() . "')</script>";
+    // Check if username or email already exists
+    $stmt_check = $dbh->prepare("SELECT COUNT(*) FROM user_tb WHERE userUsername = :userUsername OR userEmail = :userEmail");
+    $stmt_check->bindParam(':userUsername', $userUsername);
+    $stmt_check->bindParam(':userEmail', $userEmail);
+    $stmt_check->execute();
+    $count = $stmt_check->fetchColumn();
+
+    if ($count > 0) {
+        echo "<script type='text/javascript'> alert('Username or email already exists')</script>";
+    } else {
+        try {
+            $stmt = $dbh->prepare("INSERT INTO user_tb (userUsername, userPassword, userFirstName, userLastName, userEmail, userContact) VALUES (:userUsername, :userPassword, :userFirstName, :userLastName, :userEmail, :userContact)");
+            $stmt->bindParam(':userUsername', $userUsername);
+            $stmt->bindParam(':userPassword', $userPassword);
+            $stmt->bindParam(':userFirstName', $userFirstName);
+            $stmt->bindParam(':userLastName', $userLastName);
+            $stmt->bindParam(':userEmail', $userEmail);
+            $stmt->bindParam(':userContact', $userContact);
+            $stmt->execute();
+            echo "<script type='text/javascript'> alert('Successfully Registered'); window.location.href = 'homepage.php';</script>";
+            exit(); // Stop further execution after redirection
+        } catch (PDOException $e) {
+            echo "<script type='text/javascript'> alert('Registration Failed: " . $e->getMessage() . "')</script>";
+        }
     }
 } elseif ($_SERVER['REQUEST_METHOD'] == "POST") {
     echo "<script type='text/javascript'> alert('Please Enter Valid Information')</script>";
 }
 
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -35,12 +49,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['submit'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ResPAWn - Sign Up User</title>
-    <link rel="stylesheet" href="style.css" </head>
-    <script type="text/javascript">
-        function redirectToLogin() {
-            window.location.href = "index.php";
-        }
-    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
 
 <body>
 
@@ -76,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['submit'])) {
 
         <button type="submit" name="submit"> Submit </button>
 
-        <p>Already have an account? <a href="login.php">Login Here</a>
+        <p>Already have an account? <a href="loginUser.php">Login Here</a>
 
         </p>
 </body>
