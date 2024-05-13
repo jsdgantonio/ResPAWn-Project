@@ -14,7 +14,7 @@ session_start();
     <h1>Welcome to ResPAWn!</h1>
     <a href="aboutus.php">About Us</a>
     <br>
-    <a href="postuser.php">New Post</a>
+    <a href="postorg.php">New Post</a>
     <br><br>
     <h3>Home</h3>
     <table>
