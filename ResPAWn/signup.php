@@ -12,7 +12,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['submit'])) {
 
     if (!empty($userEmail) && !empty($userPassword) && !is_numeric($userEmail)) {
         try {
-            $stmt = $dbh->prepare("INSERT INTO user_tb (userUsername, userPassword, userFirstName, userLastName, userEmail, userContact) VALUES (:userUsername, :userPassword, :userFirstName, :userLastName, :userEmail, :userContact)");
+            $stmt = $dbh->prepare("INSERT INTO user_tb (userUsername, userPassword, userFirstName, userLastName,
+            userEmail, userContact) VALUES (:userUsername, :userPassword, :userFirstName, :userLastName,
+            :userEmail, :userContact)
+            INNER JOIN user_tb ON user_tb.userID=postuser.uID
+            ");
             $stmt->bindParam(':userUsername', $userUsername);
             $stmt->bindParam(':userPassword', $userPassword);
             $stmt->bindParam(':userFirstName', $userFirstName);
@@ -37,8 +41,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['submit'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ResPAWn - Sign Up</title>
-    <link rel="stylesheet" href="style.css" </head>
-
+    <link rel="stylesheet" href="style.css" >
+</head>
 <body>
 
 

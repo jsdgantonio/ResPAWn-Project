@@ -14,11 +14,4 @@ try {
     echo 'Connection failed: ' . $e->getMessage();
 }
 
-/*
-try {
-    $conn = new PDO("mysql:host={$host};port={$port};dbname={$dbname}", $user, $password);
-} catch (PDOException $e) {
-    echo 'Connection failed: ' . $e->getMessage();
-}*/
-
 ?>
