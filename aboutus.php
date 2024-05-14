@@ -7,17 +7,81 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Roboto+Slab&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="aboutusstyle.css">
     <title>About Us</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background-image: url('animals-aboutus.png'); /* Corrected syntax */
+            background-size: cover; /* Ensures the image covers the entire page */
+            background-position: center; /* Centers the background image */
+            background-repeat: no-repeat; /* Prevents the background image from repeating */
+            background-attachment: fixed; /* Keeps the background image fixed in place during scroll */
+            font-family: 'Poppins', sans-serif; /* Applying the Poppins font to the body */
+            display: flex;
+            flex-direction: column; /* Set flex direction to column */
+            justify-content: center; /* Center content vertically */
+            align-items: center; /* Center content horizontally */
+            color: #333; /* Text color for better readability */
+            opacity: 0; /* Start with the body hidden */
+            transition: opacity 1s ease-in; /* Add a transition for the opacity */
+        }
+        body.loaded {
+            opacity: 1; /* Show the body when the class is added */
+        }
+        header {
+            background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent background for the header */
+            padding: 10px;
+            width: 100%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .fontt {
+            font-weight: bold;
+            font-size: 2.5em; /* Increase the font size for the "About Us" text */
+        }
+        .text-container {
+            text-align: justify;
+        }
+        p {
+            font-size: 1.2em; /* Increase the font size for paragraphs */
+        }
+        /* Style for the link */
+        .about-link {
+            text-decoration: none; /* Remove underline */
+            color: inherit; /* Inherit text color */
+        }
+        /* Style for the white container */
+        .white-container {
+            background-color: rgba(255, 255, 255, 0.6); /* Slightly transparent white background */
+            padding: 20px; /* Add padding */
+            border-radius: 10px; /* Rounded corners */
+            max-width: 80%; /* Limit container width */
+            margin-top: 20px; /* Add margin to separate from the header */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+        }
+    </style>
 </head>
 <body>
-        <header>
-        <?php
-        include '..\ResPAWn-Project-main\navbar.php';
-        ?>
+    <header>
+        <?php include '../ResPAWn-Project-main/navbar.php'; ?>
     </header>
-    <h1>About Us</h1>
-
-    <p>ResPAWn: Rescue Paws Now is a web application that helps connect pet owners, animal lovers, and animal welfare organizations in a unified platform to facilitate the rescue and care of lost, sick, injured, or stray animals. The platform allows users to easily upload pet details and photos, an option to alert nearby animal organizations, and report missing pets, while organizations receive timely notifications based on proximity to incidents. The purpose of ResPAWn is to address the pressing need for a centralized platform to coordinate efforts in rescuing and caring for animals in distress. This project bridges the gap between animal lovers seeking help for their lost or injured pets and animal welfare organizations striving to provide timely assistance. By facilitating swift communication and resource allocation, ResPAWn aims to improve the outcomes for animals in need. With this, the goal is to establish a user-friendly and effective platform for them. While ResPAWn aims to address the challenges in animal rescue and care, it is essential to acknowledge potential limitations. These may include the need for continuous user education and engagement and the availability of resources within animal welfare organizations. Despite these challenges, ResPAWn remains committed to its mission of improving animal welfare. To achieve its objectives, ResPAWn will adopt a collaborative approach involving its key stakeholders, such as pet owners, animal lovers, and animal welfare organizations. The development process will prioritize user feedback and continual improvements to ensure the website application’s effectiveness and usability make a meaningful impact in the field of animal welfare.
-</p>
-
+    <!-- White container -->
+    <div class="white-container">
+        <!-- Clickable container -->
+        <a href="aboutus2.php" class="about-link">
+            <div class="heading-container">
+                <h1 class="fontt" style="text-align: center;">About Us</h1>
+            </div>
+        </a>
+        <div class="text-container">
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Wait for the entire page to load
+        window.addEventListener('load', function() {
+            document.body.classList.add('loaded');
+        });
+    </script>
 </body>
 </html>
