@@ -123,7 +123,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-white px-4 px-lg-5 py-3 py-lg-0 pb-3 pt-3">
 
         <a href="index.html" class="navbar-brand p-0">
-            <img src="navbar-imgs/RESPAWN-logo.png" alt="Logo">
+            <img src="RESPAWN-logo.png" alt="Logo">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse">
             <span class="fa fa-bars"></span>
