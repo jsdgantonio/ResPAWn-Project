@@ -44,43 +44,78 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['submit'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ResPAWn - Sign Up</title>
-    <link rel="stylesheet" href="style.css" </head>
-
+    <title>ResPAWn - Sign Up Org</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="signupstyle.css" </head>
+    <script type="text/javascript">
+        function redirectToLogin() {
+            window.location.href = "index.php";
+        }
+    </script>
 
 <body>
+<header>
 
+<?php
+        include '..\ResPAWn-Project-main\navbar.php';
+    ?>
+    </header>
 
-    <h1>Welcome to ResPAWn!</h1>
-    <h2>Sign Up Organization</h2>
-    <h3>insert slogan kemerut</h3>
-
-    <br>
-    <a href="aboutus.php">About Us</a>
-    <br>
-
+    <div class="container-wrapper">
+    <div class="container login-container">
+                <div class="form-container">
+                    <div class="form-title">Organization Sign Up</div>
+    
     <form method="POST" id="signupForm">
-        <label for="orgUsername">Organization Username:</label>
-        <input type="text" id="orgUsername" name="orgUsername" required><br><br>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="mb-3 form-floating">
+                <input type="text" id="orgUsername" class="form-control" name="orgUsername" placeholder="Username" required><br><br>
+                <label for="orgUsername">Username:</label>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="mb-3 form-floating">
+                <input type="password" id="orgPassword" class="form-control" name="orgPassword" placeholder="Password" required><br><br>
+                <label for="orgPassword">Password:</label>
+            </div>
+        </div>
+    </div>
 
-        <label for="orgPassword">Password:</label>
-        <input type="password" id="orgPassword" name="orgPassword" required><br><br>
-
+<div class="row">
+    <div class="col-md-12">
+        <div class="mb-3 form-floating">
+        <input type="text" id="orgName" class="form-control" name="orgName"  placeholder="Organization Name" required><br><br>
         <label for="orgName">Organization Name:</label>
-        <input type="text" id="orgName" name="orgName" required><br><br>
+        </div>
+    </div>
+</div>
 
+<div class="row">
+    <div class="col-md-6">
+        <div class="mb-3 form-floating">
+        <input type="email" id="orgEmail" class="form-control" name="orgEmail" placeholder="Email" required><br><br>
         <label for="orgEmail">Email:</label>
-        <input type="email" id="orgEmail" name="orgEmail" required><br><br>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="mb-3 form-floating">
+        <input type="tel" id="orgContact" class="form-control" name="orgContact" pattern="[0-9]{4}-[0-9]{3}-[0-9]{4}" value="0912-345-6789" required><br><br>
+        <label for="userContact">Contact:</label>
+        </div>
+    </div>
+</div>
 
-        <label for="orgContact">Contact:</label>
-        <input type="tel" id="orgContact" name="orgContact" pattern="[0-9]{4}-[0-9]{3}-[0-9]{4}" placeholder="0912-345-6789" required><br><br>
-
-
-        <button type="submit" name="submit"> Submit </button>
+<button type="submit" name="submit"> Submit </button>
 
         <p>Already have an account? <a href="login.php">Login Here</a>
 
         </p>
+
+</div>
+</div>
+</div>
+
         <script type="text/javascript">
             function redirectToHomepage() {
                 window.location.href = "homepageUser.php";
@@ -92,6 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['submit'])) {
                     event.preventDefault(); // Prevent the default form submission
 
                     // Perform AJAX request or other validation here
+
                     // Assuming registration is successful
                     redirectToHomepage();
                 });
