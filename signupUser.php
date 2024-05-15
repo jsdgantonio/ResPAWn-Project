@@ -10,13 +10,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['submit'])) {
     $userContact = $_POST['userContact'];
 
     // Check if username or email already exists
-    $stmt = $dbh->prepare("SELECT * FROM user_tb WHERE userUsername = :userUsername OR userEmail = :userEmail");
-    $stmt->bindParam(':userUsername', $userUsername);
-    $stmt->bindParam(':userEmail', $userEmail);
-    $stmt->execute();
-    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt_check = $dbh->prepare("SELECT COUNT(*) FROM user_tb WHERE userUsername = :userUsername OR userEmail = :userEmail");
+    $stmt_check->bindParam(':userUsername', $userUsername);
+    $stmt_check->bindParam(':userEmail', $userEmail);
+    $stmt_check->execute();
+    $count = $stmt_check->fetchColumn();
 
-    if ($result) {
+    if ($count > 0) {
         echo "<script type='text/javascript'> alert('Username or email already exists')</script>";
     } else {
         try {
@@ -28,7 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['submit'])) {
             $stmt->bindParam(':userEmail', $userEmail);
             $stmt->bindParam(':userContact', $userContact);
             $stmt->execute();
-            echo "<script type='text/javascript'> alert('Successfully Registered')</script>";
+            echo "<script type='text/javascript'> alert('Successfully Registered'); window.location.href = 'homepageUser.php';</script>";
+            exit(); // Stop further execution after redirection
         } catch (PDOException $e) {
             echo "<script type='text/javascript'> alert('Registration Failed: " . $e->getMessage() . "')</script>";
         }
@@ -119,31 +120,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['submit'])) {
 <p>Already have an account? <a href="login.php">Login Here</a>
 
 </p>
-</div>
-</div>
-</div>
 
-<script type="text/javascript">
-            function redirectToHomepage() {
-                window.location.href = "homepageUser.php";
-            }
 
-            function handleRegistration() {
-                var form = document.getElementById("signupForm");
-                form.addEventListener("submit", function(event) {
-                    event.preventDefault(); // Prevent the default form submission
-
-                    // Perform AJAX request or other validation here
-                    // Assuming registration is successful
-                    redirectToHomepage();
-                });
-            }
-
-            // Call the function when the page is loaded
-            window.onload = function() {
-                handleRegistration();
-            };
-        </script>
 </body>
 
 </html>
