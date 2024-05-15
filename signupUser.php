@@ -121,7 +121,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['submit'])) {
 
 </p>
 
-
+ </div>
+        </div>
+    </div>
 </body>
 
 </html>
