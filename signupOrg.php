@@ -10,13 +10,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['submit'])) {
     $orgContact = $_POST['orgContact'];
 
     // Check if username or email already exists
-    $stmt = $dbh->prepare("SELECT * FROM org_tb WHERE orgUsername = :orgUsername OR orgEmail = :orgEmail");
-    $stmt->bindParam(':orgUsername', $orgUsername);
-    $stmt->bindParam(':orgEmail', $orgEmail);
-    $stmt->execute();
-    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt_check = $dbh->prepare("SELECT COUNT(*) FROM org_tb WHERE orgUsername = :orgUsername OR orgEmail = :orgEmail");
+    $stmt_check->bindParam(':orgUsername', $orgUsername);
+    $stmt_check->bindParam(':orgEmail', $orgEmail);
+    $stmt_check->execute();
+    $count = $stmt_check->fetchColumn();
 
-    if ($result) {
+    if ($count > 0) {
         echo "<script type='text/javascript'> alert('Username or email already exists')</script>";
     } else {
         try {
@@ -27,7 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['submit'])) {
             $stmt->bindParam(':orgEmail', $orgEmail);
             $stmt->bindParam(':orgContact', $orgContact);
             $stmt->execute();
-            echo "<script type='text/javascript'> alert('Successfully Registered')</script>";
+            echo "<script type='text/javascript'> alert('Successfully Registered'); window.location.href = 'homepage.php';</script>";
+            exit(); // Stop further execution after redirection
         } catch (PDOException $e) {
             echo "<script type='text/javascript'> alert('Registration Failed: " . $e->getMessage() . "')</script>";
         }
@@ -47,11 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['submit'])) {
     <title>ResPAWn - Sign Up Org</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="signupstyle.css" </head>
-    <script type="text/javascript">
-        function redirectToLogin() {
-            window.location.href = "index.php";
-        }
-    </script>
+    
 
 <body>
 <header>
@@ -116,28 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['submit'])) {
 </div>
 </div>
 
-        <script type="text/javascript">
-            function redirectToHomepage() {
-                window.location.href = "homepageUser.php";
-            }
-
-            function handleRegistration() {
-                var form = document.getElementById("signupForm");
-                form.addEventListener("submit", function(event) {
-                    event.preventDefault(); // Prevent the default form submission
-
-                    // Perform AJAX request or other validation here
-
-                    // Assuming registration is successful
-                    redirectToHomepage();
-                });
-            }
-
-            // Call the function when the page is loaded
-            window.onload = function() {
-                handleRegistration();
-            };
-        </script>
+      
 </body>
 
 </html>
