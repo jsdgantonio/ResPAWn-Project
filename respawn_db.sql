@@ -58,6 +58,40 @@ LOCK TABLES `admin_tb` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `comments`
+--
+
+DROP TABLE IF EXISTS `comments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `comments` (
+  `commentID` int(11) NOT NULL AUTO_INCREMENT,
+  `comment` varchar(200) DEFAULT NULL,
+  `comment_created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `ucID` int(11) DEFAULT NULL,
+  `ocID` int(11) DEFAULT NULL,
+  `ocPostID` int(11) DEFAULT NULL,
+  `ucPostID` int(11) DEFAULT NULL,
+  PRIMARY KEY (`commentID`),
+  KEY `adding_fk_user_tb_c` (`ucID`),
+  KEY `adding_fk_org_tb_c` (`ocID`),
+  KEY `adding_fk_postuser_c` (`ucPostID`),
+  KEY `adding_fk_postorg_c` (`ocPostID`),
+  CONSTRAINT `adding_fk_org_tb_c` FOREIGN KEY (`ocID`) REFERENCES `org_tb` (`orgID`),
+  CONSTRAINT `adding_fk_user_tb_c` FOREIGN KEY (`ucID`) REFERENCES `user_tb` (`userID`)
+) ENGINE=InnoDB AUTO_INCREMENT=237 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `comments`
+--
+
+LOCK TABLES `comments` WRITE;
+/*!40000 ALTER TABLE `comments` DISABLE KEYS */;
+/*!40000 ALTER TABLE `comments` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `org_tb`
 --
 
@@ -72,7 +106,7 @@ CREATE TABLE `org_tb` (
   `orgEmail` varchar(45) DEFAULT NULL,
   `orgContact` int(11) DEFAULT NULL,
   PRIMARY KEY (`orgID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -81,7 +115,7 @@ CREATE TABLE `org_tb` (
 
 LOCK TABLES `org_tb` WRITE;
 /*!40000 ALTER TABLE `org_tb` DISABLE KEYS */;
-INSERT INTO `org_tb` VALUES (1,'animalorg','1','animal org','o@gmail.com',123);
+INSERT INTO `org_tb` VALUES (1,'animalorg','1','animal org','o@gmail.com',123),(2,'petplace','pet','pet place','pet@gmail.com',976),(3,'pp','pet','puppy place','pp@gmail.com',976);
 /*!40000 ALTER TABLE `org_tb` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -98,14 +132,13 @@ CREATE TABLE `postorg` (
   `orgLocation` varchar(45) DEFAULT NULL,
   `orgCaption` varchar(45) DEFAULT NULL,
   `orgImage` varchar(45) DEFAULT NULL,
-  `orgComment` varchar(45) DEFAULT NULL,
   `orgStatus` varchar(45) DEFAULT NULL,
   `org_created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`orgPostID`),
   KEY `adding_fk_org_tb` (`oID`),
   CONSTRAINT `adding_fk_org` FOREIGN KEY (`oID`) REFERENCES `org_tb` (`orgID`),
   CONSTRAINT `adding_fk_org_tb` FOREIGN KEY (`oID`) REFERENCES `org_tb` (`orgID`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -114,7 +147,7 @@ CREATE TABLE `postorg` (
 
 LOCK TABLES `postorg` WRITE;
 /*!40000 ALTER TABLE `postorg` DISABLE KEYS */;
-INSERT INTO `postorg` VALUES (1,1,'morato','dog open for adoption!','dog.png','i want to adopt','Open For Adoption','2024-05-13 05:57:09'),(4,1,'morato','dog open for adoption!','dog.png','i want to adopt','Open For Adoption','2024-05-13 05:57:09'),(5,1,'morato','dog open for adoption!','dog.png','i want to adopt','Open For Adoption','2024-05-13 05:57:09'),(13,NULL,'nka','adn,k','ndlka',NULL,'arggg','2024-05-13 05:57:09'),(14,NULL,'nka','adn,k','ndlka',NULL,'arggg','2024-05-13 05:57:09'),(15,NULL,'nka','adn,k','ndlka',NULL,'arg','2024-05-13 05:57:09'),(16,NULL,'nka','adn,k','ndlka',NULL,'arg','2024-05-13 05:57:09'),(17,NULL,'nka','adn,k','ndlka',NULL,'arg','2024-05-13 05:57:09'),(18,NULL,'nka','adn,k','ndlka',NULL,'arg','2024-05-13 05:57:09'),(19,NULL,'nka','adn,k','ndlka',NULL,'arg','2024-05-13 05:57:09'),(20,NULL,'nka','adn,k','ndlka',NULL,'arg','2024-05-13 05:57:09'),(21,1,'nka','adn,k','ndlka',NULL,'arg','2024-05-13 05:57:09'),(29,1,'tama ba to','tama','tama',NULL,'arg','2024-05-13 06:11:48'),(30,1,'may tama ka','may tama ka','may tama ka',NULL,'GOH','2024-05-13 06:12:08'),(31,1,'akosi','akosi','akosi',NULL,'akosi','2024-05-13 06:13:29');
+INSERT INTO `postorg` VALUES (39,1,'sampaloc','pusakal','cat.png','needs help','2024-05-16 23:03:27');
 /*!40000 ALTER TABLE `postorg` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -131,14 +164,13 @@ CREATE TABLE `postuser` (
   `userLocation` varchar(45) DEFAULT NULL,
   `userCaption` varchar(45) DEFAULT NULL,
   `userImage` varchar(45) DEFAULT NULL,
-  `userComment` varchar(45) DEFAULT NULL,
   `userStatus` varchar(45) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`userPostID`),
   KEY `adding_fk_user_tb` (`uID`),
   CONSTRAINT `adding_fk_user` FOREIGN KEY (`uID`) REFERENCES `user_tb` (`userID`),
   CONSTRAINT `adding_fk_user_tb` FOREIGN KEY (`uID`) REFERENCES `user_tb` (`userID`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -147,7 +179,7 @@ CREATE TABLE `postuser` (
 
 LOCK TABLES `postuser` WRITE;
 /*!40000 ALTER TABLE `postuser` DISABLE KEYS */;
-INSERT INTO `postuser` VALUES (3,2,'kyusi','askal missing dito','askal.png','','missing','2024-05-13 05:55:48'),(17,3,'pearl drive','saklolo yung pusa ko nawawala','pusako.png','nasa ilalim kanina','missing','2024-05-13 05:55:48'),(23,3,'mfklsfk','msfelks','mfkslk',NULL,'arg','2024-05-13 05:55:48'),(28,3,'the one','dog','dog.png',NULL,'missing','2024-05-13 06:11:06'),(29,3,'test','test','test',NULL,'test','2024-05-13 06:11:23');
+INSERT INTO `postuser` VALUES (3,2,'kyusi','askal missing dito','askal.png','missing','2024-05-13 05:55:48'),(17,3,'pearl drive','saklolo yung pusa ko nawawala','pusako.png','missing','2024-05-13 05:55:48'),(35,3,'gumana ka na','gumana ka na','gumana ka na','gumana ka na','2024-05-13 09:03:11'),(36,3,'plswork','plswork','plswork','plswork','2024-05-13 09:06:12'),(37,3,'work','work','work','work','2024-05-13 09:06:47'),(38,1,'WORK','WORK','WORK','WORK','2024-05-13 09:21:22'),(39,1,'MORATO','MAY ASO DITO','ASO.PNG','MISSING','2024-05-13 09:21:59'),(42,3,'city','city girl','citygirl','siyudad','2024-05-13 09:38:52'),(45,1,'143','143','143','143','2024-05-14 10:44:12');
 /*!40000 ALTER TABLE `postuser` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -167,7 +199,7 @@ CREATE TABLE `user_tb` (
   `userEmail` varchar(45) DEFAULT NULL,
   `userContact` int(11) DEFAULT NULL,
   PRIMARY KEY (`userID`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -176,7 +208,7 @@ CREATE TABLE `user_tb` (
 
 LOCK TABLES `user_tb` WRITE;
 /*!40000 ALTER TABLE `user_tb` DISABLE KEYS */;
-INSERT INTO `user_tb` VALUES (1,'lilmarcy','143','marceline','little','marcy@gmail.com',123),(2,'kathy','1010','kathryn','bernardo','kb@gmail.com',234),(3,'hevabi','00','hev','abi','ha@gmail.com',1103),(4,'cerabhie','anakngbayan','alyzza','castillo','aj@gmail.com',378430),(5,'charhashi','afam','bianca','tinsay','bt@gmail.com',289380),(6,'binini','bhdsj','nini','bini','nini@gmail.com',128193),(7,'jeaisbusy','09309','jea','ant','langgam@gmail.com',19201),(8,'langgam','ant','ant','sad','ant@gmail.com',128932),(9,'antyyy','3872','langg','am','anttt@gmail.com',12819),(10,'ysa','4686','ysabella','agb','ya@gmail.com',381);
+INSERT INTO `user_tb` VALUES (1,'lilmarcy','143','marceline','little','marcy@gmail.com',123),(2,'kathy','1010','kathryn','bernardo','kb@gmail.com',234),(3,'hevabi','00','hev','abi','ha@gmail.com',1103),(4,'cerabhie','anakngbayan','alyzza','castillo','aj@gmail.com',378430),(5,'charhashi','afam','bianca','tinsay','bt@gmail.com',289380),(6,'binini','bhdsj','nini','bini','nini@gmail.com',128193),(7,'jeaisbusy','09309','jea','ant','langgam@gmail.com',19201),(8,'langgam','ant','ant','sad','ant@gmail.com',128932),(9,'antyyy','3872','langg','am','anttt@gmail.com',12819),(10,'ysa','4686','ysabella','agb','ya@gmail.com',381),(11,'newuser','new','new','user','new@gmail.com',989),(12,'sd','sd','shanti','dope','sd@gmail.com',1233);
 /*!40000 ALTER TABLE `user_tb` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -189,4 +221,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-13 15:21:23
+-- Dump completed on 2024-05-17  7:08:19
