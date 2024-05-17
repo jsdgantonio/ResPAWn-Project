@@ -38,6 +38,8 @@
         .fontt {
             font-weight: bold;
             font-size: 2.5em; /* Increase the font size for the "About Us" text */
+            color: orange;
+            transition: transform 0.3s; /* Add transition for scaling */
         }
         .text-container {
             text-align: justify;
@@ -56,9 +58,14 @@
             padding: 20px; /* Add padding */
             border-radius: 10px; /* Rounded corners */
             max-width: 80%; /* Limit container width */
-            margin-top: 20px; /* Add margin to separate from the header */
+            margin-top:280px; /* Add margin to separate from the header */
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+            transition: transform 0.3s; /* Add transition for scaling */
         }
+        .white-container:hover {
+            transform: scale(1.05); /* Scale up on hover */
+        }
+        
     </style>
 </head>
 <body>
@@ -70,7 +77,7 @@
         <!-- Clickable container -->
         <a href="aboutus2.php" class="about-link">
             <div class="heading-container">
-                <h1 class="fontt" style="text-align: center;">About Us</h1>
+                <h1 class="fontt" style="text-align: center;">ABOUT US</h1>
             </div>
         </a>
         <div class="text-container">
