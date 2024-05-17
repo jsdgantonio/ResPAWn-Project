@@ -11,6 +11,7 @@ session_start();
     <title>ResPAWn</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="homepageStyle.css" </head>
+    
     <style>
         .comments-section {
             display: none;
@@ -22,6 +23,11 @@ session_start();
     </style>
 </head>
 <body>
+<header>
+<?php
+        include '..\ResPAWn-Project-main\navbar.php';
+    ?>
+    </header>
     <h1>Welcome to ResPAWn!</h1>
     <a href="aboutus.php">About Us</a>
     <br>
