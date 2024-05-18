@@ -30,9 +30,6 @@ if (!isset($_SESSION['userID'])) {
     <div class="welcome-container text-center mb-4">
     <h1 class="text2">WELCOME TO RESPAWN!</h1>
         <div class="row">
-            <div>
-            <a href="profileUser.php">My Profile</a>
-            </div>
             <div class="col">
                 <h2 class="text-start mb-4">News Feed</h2>
             </div>
