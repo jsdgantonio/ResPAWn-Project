@@ -28,7 +28,9 @@ if (isset($_GET['postid'])) {
         } else {
             $name = htmlspecialchars($comment['firstName']) . ' ' . htmlspecialchars($comment['lastName']);
         }
-        echo '<div class="comment">' . htmlspecialchars($comment['comment']) . ' - <strong>' . $name . '</strong> (' . htmlspecialchars($comment['comment_created_at']) . ')</div>';
+
+        $formattedDate = date('Y-m-d', strtotime($comment['comment_created_at']));
+        echo '<div class="comment"> <strong>' . $name . '</strong>, (' . htmlspecialchars($formattedDate) . ')<br>' . htmlspecialchars($comment['comment']) . '</div>';
     }
 }
 ?>

@@ -35,6 +35,6 @@ if (isset($_POST['postid']) && isset($_POST['comment'])) {
         $username = htmlspecialchars($org['orgName']);
     }
 
-    echo '<div class="comment">' . htmlspecialchars($comment) . ' - <strong>' . $username . '</strong> (Just now)</div>';
+    echo '<div class="comment"> <strong>' . $username . '</strong>, (Just now)<br>' . htmlspecialchars($comment) . '</div>';
 }
 ?>
