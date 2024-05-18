@@ -29,6 +29,51 @@ $posts = $dbh->query("SELECT * FROM postuser")->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
+    <style>
+        body {
+            background-color: #FFAF13;
+            font-family: Arial, sans-serif;
+        }
+        
+        h1 {
+            text-align: center;
+        }
+        
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #333;
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .logout-btn {
+            background-color: white;
+            border: none;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <h1>Admin Panel</h1>
@@ -58,5 +103,8 @@ $posts = $dbh->query("SELECT * FROM postuser")->fetchAll(PDO::FETCH_ASSOC);
             </tr>
         <?php } ?>
     </table>
+    <div class="button-container">
+        <a href="admin_logout.php" class="logout-btn">Logout</a>
+    </div>
 </body>
 </html>
