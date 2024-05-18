@@ -6,10 +6,10 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #FFAF13;
+    background-color: hsl(40, 100%, 54%);
     background-size: cover;
     background-repeat: no-repeat;
-    background-image:url('catdg.png');
+    background-image:url('images/catdg.png');
     background-position: center bottom -50px;
 }
 
