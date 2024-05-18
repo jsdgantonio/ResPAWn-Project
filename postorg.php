@@ -1,20 +1,68 @@
-<?php 
+<?php
 session_start();
 include("connection.php");
 
 if (!isset($_SESSION['orgID'])) {
-    header("Location: login.php");
+    header("Location: loginUser.php");
     exit;
 }
 
 if (isset($_POST["submit"])) {
     $orgID = $_SESSION['orgID'];
-    
+
     $orgLocation = $_POST['orgLocation'];
     $orgCaption = $_POST['orgCaption'];
-    $orgImage = $_POST['orgImage'];
     $orgStatus = $_POST['orgStatus'];
 
+    // File upload handling
+    $target_dir = "uploads/";
+    $target_file = $target_dir . basename($_FILES["orgImage"]["name"]);
+    $uploadOk = 1;
+    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+    // Check if image file is a actual image or fake image
+    $check = getimagesize($_FILES["orgImage"]["tmp_name"]);
+    if ($check !== false) {
+        $uploadOk = 1;
+    } else {
+        echo "File is not an image.";
+        $uploadOk = 0;
+    }
+
+    // Check if file already exists
+    if (file_exists($target_file)) {
+        echo "Sorry, file already exists.";
+        $uploadOk = 0;
+    }
+
+    // Check file size
+    if ($_FILES["orgImage"]["size"] > 500000) {
+        echo "Sorry, your file is too large.";
+        $uploadOk = 0;
+    }
+
+    // Allow certain file formats
+    if (
+        $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+        && $imageFileType != "gif"
+    ) {
+        echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+        $uploadOk = 0;
+    }
+
+    // Check if $uploadOk is set to 0 by an error
+    if ($uploadOk == 0) {
+        echo "Sorry, your file was not uploaded.";
+        // if everything is ok, try to upload file
+    } else {
+        if (move_uploaded_file($_FILES["orgImage"]["tmp_name"], $target_file)) {
+            echo "The file " . htmlspecialchars(basename($_FILES["orgImage"]["name"])) . " has been uploaded.";
+        } else {
+            echo "Sorry, there was an error uploading your file.";
+        }
+    }
+
+    // Inserting data into database
     try {
         $stmt = $dbh->prepare("INSERT INTO postorg (oID, orgLocation, orgCaption, orgImage, orgStatus)
         VALUES (:oID, :orgLocation, :orgCaption, :orgImage, :orgStatus)");
@@ -22,7 +70,7 @@ if (isset($_POST["submit"])) {
         $stmt->bindParam(':oID', $orgID);
         $stmt->bindParam(':orgLocation', $orgLocation);
         $stmt->bindParam(':orgCaption', $orgCaption);
-        $stmt->bindParam(':orgImage', $orgImage);
+        $stmt->bindParam(':orgImage', $target_file); // Store the file path in the database
         $stmt->bindParam(':orgStatus', $orgStatus);
 
         $stmt->execute();
@@ -37,35 +85,37 @@ if (isset($_POST["submit"])) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Post Org</title>
     <link rel="stylesheet" href="postuserstyle.css">
 </head>
+
 <body>
     <br>
     <a href="index.php">Back To Index</a>
     <br>
-    
-    <form method="post">
+
+    <form method="post" enctype="multipart/form-data">
         <label for="orgLocation">Location:</label>
         <input type="text" id="orgLocation" name="orgLocation" required><br><br>
 
         <label for="orgCaption">Caption:</label>
         <input type="text" id="orgCaption" name="orgCaption" required><br><br>
-        
+
         <label for="orgImage">Image:</label>
         <input type="file" id="orgImage" name="orgImage" required><br><br>
 
         <label for="orgStatus">Status:</label>
         <select id="orgStatus" name="orgStatus" required>
-            <option value="missing">Missing</option>
-            <option value="needs_help">Needs Help</option>
-            <option value="rescued">Rescued</option>
+            <option value="Open for Adoption">Open for Adoption</option>
+            <option value="Adopted">Adopted</option>
         </select><br><br>
 
         <button type="submit" name="submit">Submit</button>
     </form>
 </body>
+
 </html>
