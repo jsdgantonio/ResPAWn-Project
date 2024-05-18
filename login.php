@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['submit'])) {
         <div class="welcome-container text-center mb-4">
             <h1 class="text1">WELCOME TO RESPAWN!</h1>
             <div class="row">
-                <h2>Login</h2>
+
 
 
                 <form method="POST">
@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['submit'])) {
                     <label for="Password">Password:</label>
                     <input type="password" id="Password" name="Password" required><br><br>
 
-                    <button type="submit" name="submit"> Submit </button>
+                    <button type="submit" name="submit"> Login </button>
                     <p>Don't have an account? <a href="index.php">Signup Here</a>
 
                     </p>
