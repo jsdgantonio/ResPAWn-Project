@@ -9,18 +9,10 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ResPAWn</title>
+    <link href='https://fonts.googleapis.com/css?family=Baloo Bhai' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="homepageStyle.css" </head>
     
-    <style>
-        .comments-section {
-            display: none;
-            margin-top: 10px;
-        }
-        .comment {
-            margin-bottom: 5px;
-        }
-    </style>
 </head>
 <body>
 <header>
@@ -28,12 +20,18 @@ session_start();
         include '..\ResPAWn-Project-main\navbar.php';
     ?>
     </header>
-    <h1>Welcome to ResPAWn!</h1>
-    <a href="aboutus.php">About Us</a>
-    <br>
-    <a href="postuser.php">New Post</a>
-    <br><br>
-    <h3>Home</h3>
+    <div class="feed-container">
+    <div class="welcome-container text-center mb-4">
+    <h1 class="text2">WELCOME TO RESPAWN!</h1>
+        <div class="row">
+            <div class="col">
+                <h2 class="text-start mb-4">News Feed</h2>
+            </div>
+            <div class="col text-end">
+                <a href="postuser.php" class="button">NEW POST</a>
+            </div>
+        </div>
+    </div>
     <table>
         <thead>
         </thead>
@@ -74,25 +72,36 @@ session_start();
             $stmt->execute();
 
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                echo '<tr><td>' . ($row['firstName']) . ' ' . ($row['lastName']) . '</td></tr>';
-                echo '<tr><td>' . ($row['username']) . '</td></tr>';
-                echo '<tr><td>' . ($row['status']) . '</td></tr>';
-                echo '<tr><td>' . ($row['location']) . '</td></tr>';
-                echo '<tr><td>' . ($row['caption']) . '</td></tr>';
+                echo '<tr>'; 
+                echo '<td>';
+                echo '<div class="post-container">'; 
+                echo '<p><span class="first-name">' . $row['firstName'] . '</span> (' . $row['username'] . ')</p>';
+                echo '<div><i class="gg-search-loading"></i><span class="stat">' . $row['status'] . '</span></div>'; 
+                echo '<div><i class="gg-pin"></i><span class="loc">' . $row['location'] . '</span></div>'; 
+                echo '<p></p>';
+                echo '<p>' . $row['caption'] . '</p>'; 
                 if ($row['image']) {
-                    echo '<tr><td><img src="'. ($row['image']) .'" style="width: 200px;"></td></tr>';
+                    echo '<img src="'. $row['image'] .'" style="width: 200px;">';
                 }
-                echo '<tr><td><button class="comments-button" data-postid="'. $row['postid'] .'" data-source="'. $row['source'] .'">Comments</button></td></tr>';
-                echo '<tr><td><div class="comments-section" id="comments-section-'. $row['postid'] .'">';
+                echo '<p></p>';
+                echo '<button class="comments-button" data-postid="'. $row['postid'] .'" data-source="'. $row['source'] .'">Comments</button>'; 
+                echo '<div class="comments-section" id="comments-section-'. $row['postid'] .'">'; 
                 echo '<div class="comments-list"></div>';
                 echo '<input type="text" class="new-comment" placeholder="Add new comment">';
-                echo '<button class="add-comment" data-postid="'. $row['postid'] .'" data-source="'. $row['source'] .'">Submit</button>';
-                echo '</div></td></tr>';
+                echo '<button class="add-comment" data-postid="'. $row['postid'] .'" data-source="'. $row['source'] .'">SUBMIT</button>';
+                echo '</div>'; 
+                echo '</div>'; 
+                echo '</td>';
+                echo '</tr>'; 
             }
             ?>
         </tbody>
     </table>
-    <a href="logout.php">Logout</a>
+    </div>
+    </div>
+    <button onclick="topFunction()" id="myBtn" title="Go to top"> <i class="fa fa-arrow-circle-up" aria-hidden="true" style="font-size: 30px;"></i>
+</br>BACK TO TOP</i>
+</button>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -134,7 +143,23 @@ $(document).ready(function() {
         }
     });
 });
+//BACK TO TOP BUTTON
+let mybutton = document.getElementById("myBtn");
 
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+
+function topFunction() {
+  document.body.scrollTop = 0; 
+  document.documentElement.scrollTop = 0;
+}
 
 
     </script>
