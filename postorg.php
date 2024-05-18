@@ -41,6 +41,7 @@ if (isset($_POST["submit"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Post Org</title>
+    <link rel="stylesheet" href="postuserstyle.css">
 </head>
 <body>
     <br>
@@ -55,10 +56,14 @@ if (isset($_POST["submit"])) {
         <input type="text" id="orgCaption" name="orgCaption" required><br><br>
         
         <label for="orgImage">Image:</label>
-        <input type="text" id="orgImage" name="orgImage" required><br><br>
+        <input type="file" id="orgImage" name="orgImage" required><br><br>
 
         <label for="orgStatus">Status:</label>
-        <input type="text" id="orgStatus" name="orgStatus" required><br><br>
+        <select id="orgStatus" name="orgStatus" required>
+            <option value="missing">Missing</option>
+            <option value="needs_help">Needs Help</option>
+            <option value="rescued">Rescued</option>
+        </select><br><br>
 
         <button type="submit" name="submit">Submit</button>
     </form>
