@@ -1,6 +1,12 @@
 <?php 
 include("connection.php");
 session_start();
+
+if (!isset($_SESSION['userID'])) {
+    header("Location: login.php");
+    exit();
+}
+?>
 ?>
 
 <!DOCTYPE html>
@@ -24,6 +30,9 @@ session_start();
     <div class="welcome-container text-center mb-4">
     <h1 class="text2">WELCOME TO RESPAWN!</h1>
         <div class="row">
+            <div>
+            <a href="profileUser.php">My Profile</a>
+            </div>
             <div class="col">
                 <h2 class="text-start mb-4">News Feed</h2>
             </div>
@@ -72,10 +81,13 @@ session_start();
             $stmt->execute();
 
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $postformattedDate = date('Y-m-d', strtotime($row['created_at']));
+                
                 echo '<tr>'; 
                 echo '<td>';
                 echo '<div class="post-container">'; 
-                echo '<p><span class="first-name">' . $row['firstName'] . '</span> (' . $row['username'] . ')</p>';
+                echo '<p><span class="first-name">' . $row['firstName'] . '</span> @' . $row['username'] . '</p>';
+                echo '<p><span class="postdate">' . htmlspecialchars($postformattedDate) . '</span></p>';
                 echo '<div><i class="gg-search-loading"></i><span class="stat">' . $row['status'] . '</span></div>'; 
                 echo '<div><i class="gg-pin"></i><span class="loc">' . $row['location'] . '</span></div>'; 
                 echo '<p></p>';
@@ -97,6 +109,7 @@ session_start();
             ?>
         </tbody>
     </table>
+    <a href="logout.php">Logout</a>
     </div>
     </div>
     <button onclick="topFunction()" id="myBtn" title="Go to top"> <i class="fa fa-arrow-circle-up" aria-hidden="true" style="font-size: 30px;"></i>
