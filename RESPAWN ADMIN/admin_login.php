@@ -1,4 +1,6 @@
 <?php
+include("connection.php");
+
 session_start();
 
 // Check if admin is already logged in, redirect to admin panel if logged in

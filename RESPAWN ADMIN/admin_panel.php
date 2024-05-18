@@ -9,17 +9,18 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
 
 if (isset($_POST['approve'])) {
     $postID = $_POST['postID'];
-    $stmt = $dbh->prepare("UPDATE userPosts SET approval_status = 'approved' WHERE userPostID = :postID");
+    $stmt = $dbh->prepare("INSERT INTO submitted_posts (APPROVED) VALUES (:postID)");
     $stmt->bindParam(':postID', $postID);
     $stmt->execute();
 } elseif (isset($_POST['reject'])) {
     $postID = $_POST['postID'];
-    $stmt = $dbh->prepare("UPDATE userPosts SET approval_status = 'rejected' WHERE userPostID = :postID");
+    $stmt = $dbh->prepare("INSERT INTO submitted_posts (REJECTED) VALUES (:postID) ;
+    ");
     $stmt->bindParam(':postID', $postID);
     $stmt->execute();
 }
 
-$posts = $dbh->query("SELECT * FROM userPosts WHERE approval_status = 'pending'")->fetchAll(PDO::FETCH_ASSOC);
+$posts = $dbh->query("SELECT * FROM postuser")->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
