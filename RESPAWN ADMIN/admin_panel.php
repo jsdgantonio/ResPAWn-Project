@@ -1,50 +1,25 @@
 <?php
 session_start();
+include("connection.php");
 
-// Check if admin is logged in, otherwise redirect to login page
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
     header("Location: admin_login.php");
-    exit();
+    exit;
 }
 
-// Replace this with your database connection code
-$host = "127.0.0.1";
-$port = 3306;
-$socket = "";
-$user = "root";
-$password = "";
-$dbname = "respawn_db";
-
-try {
-    $conn = new PDO("mysql:host={$host};port={$port};dbname={$dbname}", $user, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    // Fetch submitted posts from database with status 'PENDING'
-    $stmt = $conn->prepare("SELECT * FROM submitted_posts WHERE PENDING = 'YES'");
+if (isset($_POST['approve'])) {
+    $postID = $_POST['postID'];
+    $stmt = $dbh->prepare("UPDATE userPosts SET approval_status = 'approved' WHERE userPostID = :postID");
+    $stmt->bindParam(':postID', $postID);
     $stmt->execute();
-    $submitted_posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    // Process form submission for post approval or rejection
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if (isset($_POST['approve'])) {
-            // Handle post approval
-            $post_id = $_POST['approve'];
-            $stmt = $conn->prepare("UPDATE submitted_posts SET APPROVED = 'YES', PENDING = 'NO' WHERE ID = :id");
-            $stmt->bindParam(':id', $post_id);
-            $stmt->execute();
-            echo "Post with ID $post_id has been approved.";
-        } elseif (isset($_POST['reject'])) {
-            // Handle post rejection
-            $post_id = $_POST['reject'];
-            $stmt = $conn->prepare("UPDATE submitted_posts SET REJECTED = 'YES', PENDING = 'NO' WHERE ID = :id");
-            $stmt->bindParam(':id', $post_id);
-            $stmt->execute();
-            echo "Post with ID $post_id has been rejected.";
-        }
-    }
-} catch (PDOException $e) {
-    echo 'Connection failed: ' . $e->getMessage();
+} elseif (isset($_POST['reject'])) {
+    $postID = $_POST['postID'];
+    $stmt = $dbh->prepare("UPDATE userPosts SET approval_status = 'rejected' WHERE userPostID = :postID");
+    $stmt->bindParam(':postID', $postID);
+    $stmt->execute();
 }
+
+$posts = $dbh->query("SELECT * FROM userPosts WHERE approval_status = 'pending'")->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -56,30 +31,31 @@ try {
 </head>
 <body>
     <h1>Admin Panel</h1>
-    <h2>Submitted Posts</h2>
     <table border="1">
         <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Content</th>
-            <th>Action</th>
+            <th>Post ID</th>
+            <th>Location</th>
+            <th>Caption</th>
+            <th>Status</th>
+            <th>Image</th>
+            <th>Actions</th>
         </tr>
-        <?php foreach ($submitted_posts as $post) { ?>
+        <?php foreach ($posts as $post) { ?>
             <tr>
-                <td><?php echo $post['ID']; ?></td>
-                <td><?php echo $post['Title']; ?></td>
-                <td><?php echo $post['Content']; ?></td>
+                <td><?php echo $post['userPostID']; ?></td>
+                <td><?php echo $post['userLocation']; ?></td>
+                <td><?php echo $post['userCaption']; ?></td>
+                <td><?php echo $post['userStatus']; ?></td>
+                <td><img src="<?php echo $post['userImage']; ?>" alt="Image" width="100"></td>
                 <td>
                     <form method="post">
-                        <input type="hidden" name="post_id" value="<?php echo $post['ID']; ?>">
-                        <button type="submit" name="approve" value="<?php echo $post['ID']; ?>">Approve</button>
-                        <button type="submit" name="reject" value="<?php echo $post['ID']; ?>">Reject</button>
+                        <input type="hidden" name="postID" value="<?php echo $post['userPostID']; ?>">
+                        <button type="submit" name="approve">Approve</button>
+                        <button type="submit" name="reject">Reject</button>
                     </form>
                 </td>
             </tr>
         <?php } ?>
     </table>
-    <br>
-    <a href="admin_logout.php">Logout</a>
 </body>
 </html>
