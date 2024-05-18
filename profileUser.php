@@ -37,17 +37,22 @@ $userID = $_SESSION['userID'];
             postuser.created_at AS created_at
         FROM postuser
         INNER JOIN user_tb ON postuser.uID = user_tb.userID
-        WHERE user_tb.userID = :uID";
+        WHERE user_tb.userID = :uID
+        ORDER BY created_at DESC";
 
         $stmt = $dbh->prepare($sql);
         $stmt->bindParam(':uID', $userID, PDO::PARAM_INT);
         $stmt->execute();
 
+
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $postformattedDate = date('Y-m-d', strtotime($row['created_at']));
+
             echo '<div class="post">';
             echo '<div class="post-info">';
             echo '<p><strong>Name: </strong>' . htmlspecialchars($row['firstName']) . ' ' . htmlspecialchars($row['lastName']) . '</p>';
             echo '<p><strong>Username: </strong>' . htmlspecialchars($row['username']) . '</p>';
+            echo '<p><strong>Posted On: </strong>' . htmlspecialchars($postformattedDate) . '</p>';
             echo '<p><strong>Status: </strong>' . htmlspecialchars($row['status']) . '</p>';
             echo '<p><strong>Location: </strong>' . htmlspecialchars($row['location']) . '</p>';
             echo '<p><strong>Caption: </strong>' . htmlspecialchars($row['caption']) . '</p>';

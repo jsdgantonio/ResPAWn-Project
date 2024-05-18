@@ -37,17 +37,21 @@ $orgID = $_SESSION['orgID'];
             postorg.org_created_at AS created_at
         FROM postorg
         INNER JOIN org_tb ON postorg.oID = org_tb.orgID
-        WHERE org_tb.orgID = :orgID";
+        WHERE org_tb.orgID = :orgID
+        ORDER BY created_at DESC";
 
         $stmt = $dbh->prepare($sql);
         $stmt->bindParam(':orgID', $orgID, PDO::PARAM_INT);
         $stmt->execute();
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $postformattedDate = date('Y-m-d', strtotime($row['created_at']));
+
             echo '<div class="post">';
             echo '<div class="post-info">';
             echo '<p><strong>Organization Name: </strong>' . htmlspecialchars($row['orgName']) . '</p>';
             echo '<p><strong>Username: </strong>' . htmlspecialchars($row['username']) . '</p>';
+            echo '<p><strong>Posted On: </strong>' . htmlspecialchars($postformattedDate) . '</p>';
             echo '<p><strong>Status: </strong>' . htmlspecialchars($row['status']) . '</p>';
             echo '<p><strong>Location: </strong>' . htmlspecialchars($row['location']) . '</p>';
             echo '<p><strong>Caption: </strong>' . htmlspecialchars($row['caption']) . '</p>';
