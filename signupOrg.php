@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['submit'])) {
             $stmt->bindParam(':orgEmail', $orgEmail);
             $stmt->bindParam(':orgContact', $orgContact);
             $stmt->execute();
-            echo "<script type='text/javascript'> alert('Successfully Registered'); window.location.href = 'homepage.php';</script>";
+            echo "<script type='text/javascript'> alert('Successfully Registered'); window.location.href = 'homepageOrg.php';</script>";
             exit(); // Stop further execution after redirection
         } catch (PDOException $e) {
             echo "<script type='text/javascript'> alert('Registration Failed: " . $e->getMessage() . "')</script>";
@@ -48,72 +48,73 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['submit'])) {
     <title>ResPAWn - Sign Up Org</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="signupstyle.css" </head>
-    
+
 
 <body>
-<header>
+    <header>
 
-<?php
-        include '..\ResPAWn-Project-main\navbar.php';
-    ?>
+        <?php
+        include '..\ResPAWn-Project-main\navbar2.php';
+        ?>
     </header>
 
     <div class="container-wrapper">
-    <div class="container login-container">
-                <div class="form-container">
-                    <div class="form-title">Organization Sign Up</div>
-    
-    <form method="POST" id="signupForm">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="mb-3 form-floating">
-                <input type="text" id="orgUsername" class="form-control" name="orgUsername" placeholder="Username" required><br><br>
-                <label for="orgUsername">Username:</label>
+        <div class="container login-container">
+            <div class="form-container">
+                <div class="form-title">Organization Sign Up</div>
+
+                <form method="POST" id="signupForm">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3 form-floating">
+                                <input type="text" id="orgUsername" class="form-control" name="orgUsername" placeholder="Username" required><br><br>
+                                <label for="orgUsername">Username:</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3 form-floating">
+                                <input type="password" id="orgPassword" class="form-control" name="orgPassword" placeholder="Password" required><br><br>
+                                <label for="orgPassword">Password:</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="mb-3 form-floating">
+                                <input type="text" id="orgName" class="form-control" name="orgName" placeholder="Organization Name" required><br><br>
+                                <label for="orgName">Organization Name:</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3 form-floating">
+                                <input type="email" id="orgEmail" class="form-control" name="orgEmail" placeholder="Email" required><br><br>
+                                <label for="orgEmail">Email:</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3 form-floating">
+                                <input type="tel" id="userContact" class="form-control" name="userContact" pattern="[0-9]{4}-[0-9]{3}-[0-9]{4}" required><br><br>
+                                <label for="userContact">Contact:</label>
+                                <small id="contactGuide" class="form-text text-muted">Enter your contact number in the format XXXX-XXX-XXXX</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" name="submit"> Submit </button>
+
+                    <p class="login-message">Already have an account? <a href="login.php">Login Here</a></p>
+
+                    </p>
+
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="mb-3 form-floating">
-                <input type="password" id="orgPassword" class="form-control" name="orgPassword" placeholder="Password" required><br><br>
-                <label for="orgPassword">Password:</label>
-            </div>
-        </div>
     </div>
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="mb-3 form-floating">
-        <input type="text" id="orgName" class="form-control" name="orgName"  placeholder="Organization Name" required><br><br>
-        <label for="orgName">Organization Name:</label>
-        </div>
-    </div>
-</div>
 
-<div class="row">
-    <div class="col-md-6">
-        <div class="mb-3 form-floating">
-        <input type="email" id="orgEmail" class="form-control" name="orgEmail" placeholder="Email" required><br><br>
-        <label for="orgEmail">Email:</label>
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="mb-3 form-floating">
-        <input type="tel" id="orgContact" class="form-control" name="orgContact" pattern="[0-9]{4}-[0-9]{3}-[0-9]{4}" value="0912-345-6789" required><br><br>
-        <label for="userContact">Contact:</label>
-        </div>
-    </div>
-</div>
-
-<button type="submit" name="submit"> Submit </button>
-
-        <p>Already have an account? <a href="login.php">Login Here</a>
-
-        </p>
-
-</div>
-</div>
-</div>
-
-      
 </body>
 
 </html>

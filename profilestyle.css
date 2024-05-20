@@ -2,66 +2,89 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #f0f0f0;
+    background-image:url('images/background-paw.png');
     color: #333;
     margin: 0;
     padding: 0;
 }
 
 .container {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
+    max-width: 900px; /* Adjusted max-width */
+    margin: 150px auto;
+    padding: 10px; /* Adjusted padding */
     background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 15px; /* Adjusted border radius */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* Adjusted box shadow */
 }
 
 .profile-header {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px; /* Adjusted margin */
+    margin-top: 100px; /* Adjusted margin */
 }
 
+
 .profile-header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
+    font-size: 4rem; /* Adjusted font size */
+    margin-bottom: 20px; /* Adjusted margin */
+}
+
+.posts-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Adjusted column size */
+    grid-gap: 30px; /* Adjusted gap */
+}
+
+.post-column {
+    background-color: #f9f9f9;
+    border-radius: 15px; /* Adjusted border radius */
+    padding: 25px; /* Adjusted padding */
+}
+
+.post-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Adjusted column size */
+    grid-gap: 20px; /* Adjusted gap */
 }
 
 .post {
-    border-bottom: 1px solid #ddd;
-    padding: 10px 0;
-}
-
-.post:last-child {
-    border-bottom: none;
-}
-
-.post-info {
-    margin-bottom: 10px;
-}
-
-.post-info p {
-    margin: 5px 0;
+    border: 2px solid #ddd; /* Adjusted border */
+    border-radius: 15px; /* Adjusted border radius */
+    padding: 15px; /* Adjusted padding */
 }
 
 .post img {
     max-width: 100%;
     height: auto;
-    border-radius: 5px;
-    margin-top: 10px;
+    border-radius: 8px; /* Adjusted border radius */
 }
 
 .logout-link {
     display: inline-block;
-    margin-top: 20px;
-    padding: 10px 20px;
+    margin-top: 30px; /* Adjusted margin */
+    padding: 15px 25px; /* Adjusted padding */
     background-color: #333;
     color: #fff;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 8px; /* Adjusted border radius */
     font-weight: bold;
 }
 
 .logout-link:hover {
     background-color: #555;
+}
+
+.status-approved {
+    color: green;
+    font-weight: bold;
+}
+
+.status-rejected {
+    color: red;
+    font-weight: bold;
+}
+
+.status-pending {
+    color: orange;
+    font-weight: bold;
 }

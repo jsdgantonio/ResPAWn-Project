@@ -1,5 +1,9 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,70 +15,73 @@
         body {
             margin: 0;
             height: 100vh;
-            background-image: url('animals-aboutus.png'); /* Corrected syntax */
-            background-size: cover; /* Ensures the image covers the entire page */
-            background-position: center; /* Centers the background image */
-            background-repeat: no-repeat; /* Prevents the background image from repeating */
-            background-attachment: fixed; /* Keeps the background image fixed in place during scroll */
-            font-family: 'Poppins', sans-serif; /* Applying the Poppins font to the body */
+            background-image: url('images/animals-aboutus.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: 'Poppins', sans-serif;
             display: flex;
-            flex-direction: column; /* Set flex direction to column */
-            justify-content: center; /* Center content vertically */
-            align-items: center; /* Center content horizontally */
-            color: #333; /* Text color for better readability */
-            opacity: 0; /* Start with the body hidden */
-            transition: opacity 1s ease-in; /* Add a transition for the opacity */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+            opacity: 0;
+            transition: opacity 1s ease-in;
         }
+
         body.loaded {
-            opacity: 1; /* Show the body when the class is added */
+            opacity: 1;
         }
+
         header {
-            background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent background for the header */
+            background-color: rgba(255, 255, 255, 0.8);
             padding: 10px;
             width: 100%;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-        
+
         .fontt {
             font-weight: bold;
-            font-size: 2.5em; /* Increase the font size for the "About Us" text */
+            font-size: 2.5em;
             color: orange;
-            transition: transform 0.3s; /* Add transition for scaling */
+            transition: transform 0.3s;
         }
+
         .text-container {
             text-align: justify;
         }
+
         p {
-            font-size: 1.2em; /* Increase the font size for paragraphs */
+            font-size: 1.2em;
         }
-        /* Style for the link */
+
         .about-link {
-            text-decoration: none; /* Remove underline */
-            color: inherit; /* Inherit text color */
+            text-decoration: none;
+            color: inherit;
         }
-        /* Style for the white container */
+
         .white-container {
-            background-color: rgba(255, 255, 255, 0.6); /* Slightly transparent white background */
-            padding: 20px; /* Add padding */
-            border-radius: 10px; /* Rounded corners */
-            max-width: 80%; /* Limit container width */
-            margin-top:280px; /* Add margin to separate from the header */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
-            transition: transform 0.3s; /* Add transition for scaling */
+            background-color: rgba(255, 255, 255, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 80%;
+            margin-top: 280px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
         }
+
         .white-container:hover {
-            transform: scale(1.05); /* Scale up on hover */
+            transform: scale(1.05);
         }
-        
     </style>
 </head>
+
 <body>
     <header>
-        <?php include '../ResPAWn-Project-main/navbar.php'; ?>
+        <?php include 'navbar.php'; ?>
     </header>
-    <!-- White container -->
     <div class="white-container">
-        <!-- Clickable container -->
         <a href="aboutus2.php" class="about-link">
             <div class="heading-container">
                 <h1 class="fontt" style="text-align: center;">ABOUT US</h1>
@@ -85,10 +92,10 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Wait for the entire page to load
         window.addEventListener('load', function() {
             document.body.classList.add('loaded');
         });
     </script>
 </body>
+
 </html>

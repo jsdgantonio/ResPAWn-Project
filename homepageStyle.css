@@ -39,15 +39,17 @@ header {
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 8px;
-    padding: 20px;
+    padding: 30px;
     margin-bottom: 20px;
 }
 
 .post img {
-    max-width: 100%;
+    max-width: none; /* Remove the maximum width constraint */
+    width: 100%; /* Make the images fill the container width */
     border-radius: 8px;
     margin-top: 10px;
 }
+
 
 .post-info {
     margin-bottom: 10px;

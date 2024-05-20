@@ -64,24 +64,17 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a href="index.php" class="nav-link">HOME</a>
+                        <a href="admin_pending.php" class="nav-link">PENDING</a>
                     </li>
                     <li class="nav-item">
-                        <a href="aboutus.php" class="nav-link">ABOUT US</a>
+                        <a href="admin_approved.php" class="nav-link">APPROVED</a>
                     </li>
                     <li class="nav-item">
-                        <?php if (isset($_SESSION['orgID']) || isset($_SESSION['userID'])) : ?>
-                            <?php if (isset($_SESSION['orgID'])) : ?>
-                                <a href="profileOrg.php" class="nav-link">MY PROFILE</a>
-                            <?php else : ?>
-                                <a href="profileUser.php" class="nav-link">MY PROFILE</a>
-                            <?php endif; ?>
-                        <?php else : ?>
-                            <a href="login.php" class="nav-link">MY PROFILE</a>
-                        <?php endif; ?>
+                        <a href="admin_rejected.php" class="nav-link">REJECTED</a>
                     </li>
+
                     <li class="nav-item">
-                        <a href="login.php" class="nav-link" style="color: #616467; text-decoration: none;" onmouseover="this.style.color='black'" onmouseout="this.style.color='darkgray'">LOG IN</a>
+                        <a href="admin_logout.php" class="nav-link" style="color: #616467; text-decoration: none;" onmouseover="this.style.color='black'" onmouseout="this.style.color='darkgray'">LOG OUT</a>
                     </li>
                 </ul>
             </div>

@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['submit'])) {
     <header>
         <header>
             <?php
-            include '..\ResPAWn-Project-main\navbar.php';
+            include 'navbar2.php';
             ?>
         </header>
     </header>
